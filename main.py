@@ -1,3 +1,5 @@
+from selenium import webdriver
+
 news = {
     'economy': [],
     'sports': [],
@@ -6,5 +8,7 @@ news = {
     'trending-topics': [],
     'coins': [],
 }
+
+webdriver.Chrome()
 
 
