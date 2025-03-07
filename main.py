@@ -1,6 +1,7 @@
 from selenium import webdriver
+from sources.g1 import G1Reader
 
-news = {
+report = {
     'economy': [],
     'sports': [],
     'entertainment': [],
@@ -9,6 +10,15 @@ news = {
     'coins': [],
 }
 
-webdriver.Chrome()
+def main():
+    driver = webdriver.Chrome()
+    
+    g1_reader = G1Reader(driver)
+    
+    g1_reader.attatch_news(report)
 
+main()
+
+print(report)
+    
 
