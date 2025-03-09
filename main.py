@@ -1,6 +1,7 @@
 from selenium import webdriver
+from cnn import CnnReader
 
-news = {
+report = {
     'economy': [],
     'sports': [],
     'entertainment': [],
@@ -9,6 +10,14 @@ news = {
     'coins': [],
 }
 
-webdriver.Chrome()
+def main():
+    driver = webdriver.Chrome()
+    
+    cnnReader = CnnReader(driver)
+    
+    cnnReader.noticias_cnn
 
+main()
 
+print(report)
+    
