@@ -1,7 +1,7 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from sources.g1 import G1Reader
 
-news = {
+report = {
     'economy': [],
     'sports': [],
     'entertainment': [],
@@ -10,10 +10,15 @@ news = {
     'coins': [],
 }
 
-driver = webdriver.Chrome()
-driver.get("https://trends24.in/brazil/")
+def main():
+    driver = webdriver.Chrome()
+    
+    g1_reader = G1Reader(driver)
+    
+    g1_reader.attatch_news(report)
 
-driver.find_element(By.CLASS_NAME, "trend-card__list")
+main()
 
-
+print(report)
+    
 
