@@ -1,5 +1,6 @@
 from selenium import webdriver
 from cnn import CnnReader
+from sources.g1 import G1Reader
 
 report = {
     'economy': [],
@@ -17,7 +18,8 @@ def main():
     
     cnnReader.noticias_cnn
 
-main()
+    g1_reader = G1Reader(driver)
+    
+    g1_reader.attatch_news(report)
 
 print(report)
-    
