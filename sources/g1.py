@@ -17,7 +17,6 @@ class G1Reader:
         
     def attatch_news(self, report):
         for topic in self.urls:
-            print(f'Accessing G1 {topic} news')
             self.driver.get(self.urls[topic])
             WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'feed-post-body')))
             
@@ -33,13 +32,11 @@ class G1Reader:
     def __extract_first_news(self, news_list):       
         for news in news_list:
             try:
-                print('Trying to extract topic first news')
                 title = news.find_element(By.CLASS_NAME, 'feed-post-body-title').find_element(By.TAG_NAME, 'p').text
                 description = news.find_element(By.CLASS_NAME, 'feed-post-body-resumo').find_element(By.TAG_NAME, 'p').text
                 imageUrl = news.find_element(By.CLASS_NAME, 'bstn-fd-picture-image').get_attribute('src')
                 url = news.find_element(By.CLASS_NAME, 'feed-post-body-title').find_element(By.TAG_NAME, 'a').get_attribute('href')
                 
-                print('Extracted first news successfully')
                 return {
                     'title': title,
                     'description': description,
@@ -53,13 +50,11 @@ class G1Reader:
     def __extract_entertainment_first_news(self, news_list):
         for news in news_list:
             try:
-                print('Trying to extract entertainment first news')
                 title = news.find_element(By.CLASS_NAME, 'post-materia-text__title').text
                 description = news.find_element(By.CLASS_NAME, 'post-materia-text__description').text
                 imageUrl = news.find_element(By.CLASS_NAME, 'bstn-fd-cover-picture').find_element(By.TAG_NAME, 'img').get_attribute('src')
                 url = news.find_element(By.CLASS_NAME, 'post-materia-text').get_attribute('href')
                 
-                print('Extracted first news successfully')
                 return {
                     'title': title,
                     'description': description,

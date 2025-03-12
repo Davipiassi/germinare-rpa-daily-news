@@ -3,52 +3,38 @@ from selenium.webdriver.common.by import By
 from time import sleep
 
 class UOLReader:
+    
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--disable-javascript")
         self.driver = webdriver.Chrome(options=options)
 
     def get_news(self, url, news_xpath):
-        """Coleta a notícia principal de uma seção específica do UOL."""
         news_list = []
 
         try:
-            # Acessa a página da seção
             self.driver.get(url)
 
-            # Captura o primeiro link de notícia principal
-            noticia_principal = self.driver.find_element(By.XPATH, news_xpath).get_attribute('href')
-
-            # Acessa o link da notícia
-            self.driver.get(noticia_principal)
+            first_news = self.driver.find_element(By.XPATH, news_xpath).get_attribute('href')
+            self.driver.get(first_news)
             sleep(4)
 
-            # Captura a URL atual
-            url_atual = self.driver.current_url
-            print(f"URL da notícia acessada: {url_atual}")
+            current_url = self.driver.current_url
 
-            # Coleta as informações principais da notícia
-            dados_geral = self.driver.find_element(By.XPATH, '/html/body/div[1]/main')
+            news_data = self.driver.find_element(By.XPATH, '/html/body/div[1]/main')
 
-            noticia = {
-                "title": dados_geral.find_element(By.TAG_NAME, 'h1').text,
-                "data": dados_geral.find_element(By.TAG_NAME, 'time').text,
-                "description": dados_geral.find_element(By.TAG_NAME, 'p').text,
-                "url": url_atual,
+            news = {
+                "title": news_data.find_element(By.TAG_NAME, 'h1').text,
+                "date": news_data.find_element(By.TAG_NAME, 'time').text,
+                "description": news_data.find_element(By.TAG_NAME, 'p').text,
+                "url": current_url,
             }
 
-            news_list.append(noticia)
+            news_list.append(news)
 
         except Exception as e:
-            print(f"Erro ao coletar notícias: {e}")
-            # Adiciona None para os campos no dicionário em caso de erro
-            news_list.append({
-                "titulo": None,
-                "data": None,
-                "description": None,
-                "url": None,
-            })
-
+            print(f'Error while extracting these news: {type(e).__name__}')
+            
         return news_list
     
     def get_economy_news(self):
@@ -80,7 +66,6 @@ class UOLReader:
         report["economy"].extend(self.get_economy_news())
         report["sports"].extend(self.get_sports_news())
         report["entertainment"].extend(self.get_entertainment_news())
-
 
     def quit(self):
         self.driver.quit()
