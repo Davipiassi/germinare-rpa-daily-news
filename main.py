@@ -5,6 +5,7 @@ from sources.g1 import G1Reader
 from sources.uol import UOLReader
 from sources.trending import TrendingReader
 from sources.report import NewsReport
+from sources.sendEmail import SendEmail
 
 report = {
     'economy': [],
@@ -46,23 +47,35 @@ def run_trending_reader(report):
         trending_reader.driver.quit()
 
 def main():
-    cnn_thread = Thread(target=run_cnn_reader, args=(report,))
-    g1_thread = Thread(target=run_g1_reader, args=(report,))
-    uol_thread = Thread(target=run_uol_reader, args=(report,))
-    trending_thread = Thread(target=run_trending_reader, args=(report,))
+    # cnn_thread = Thread(target=run_cnn_reader, args=(report,))
+    # g1_thread = Thread(target=run_g1_reader, args=(report,))
+    # uol_thread = Thread(target=run_uol_reader, args=(report,))
+    # trending_thread = Thread(target=run_trending_reader, args=(report,))
 
-    cnn_thread.start()
-    g1_thread.start()
-    uol_thread.start()
-    trending_thread.start()
+    # cnn_thread.start()
+    # g1_thread.start()
+    # uol_thread.start()
+    # trending_thread.start()
 
-    cnn_thread.join()
-    g1_thread.join()
-    uol_thread.join()
-    trending_thread.join()
-            
+    # cnn_thread.join()
+    
+    # g1_thread.join()
+    # uol_thread.join()
+
+    # trending_thread.join()
+    
+    # run_cnn_reader(report)
+    run_g1_reader(report)
+    # run_uol_reader(report)
+    # run_trending_reader(report)
+
     report_generator = NewsReport(report)
-    report_generator.generate_pdf()
+    pdf_path = report_generator.generate_pdf()
+    print(pdf_path)
+    
+    email_sender = SendEmail()
+    email_sender.sendNewsLetter(pdf_path)
+
 
 main()
-print(report)
+# print(report)

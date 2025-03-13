@@ -41,7 +41,7 @@ class NewsReport:
         self.year = self.timestamp.strftime("%Y")
         self.folder = os.path.expanduser(f"~/Documentos/noticias/{self.week}-{self.year}")
         os.makedirs(self.folder, exist_ok=True)
-        self.filepath = os.path.join(self.folder, f"{self.timestamp.strftime('%Y-%m-%d_%H-%M-%S')}.pdf")
+        self.filepath = os.path.join(self.folder, f"{self.timestamp.strftime('%Y_%m_%d_%H_%M_%S')}.pdf")
     
     def fetch_image(self, url):
         try:
@@ -144,3 +144,4 @@ class NewsReport:
         
         c.save()
         print(f"Report saved in: {self.filepath}")
+        return self.filepath

@@ -29,8 +29,12 @@ class CnnReader:
         try:
             title = self.driver.find_element(By.CLASS_NAME, 'single-header__title').text
             description = self.driver.find_element(By.CLASS_NAME, 'single-header__excerpt').text
-            imageUrl = self.driver.find_element(By.CLASS_NAME, 'featured-image__img').get_attribute('src')
             url = self.driver.find_element(By.CSS_SELECTOR, "meta[name='parsely-link']").get_attribute("content")
+
+            try:
+                imageUrl = self.driver.find_element(By.CLASS_NAME, 'featured-image__img').get_attribute('src')
+            except Exception:
+                imageUrl = None 
 
             return {
                 'title': title,
