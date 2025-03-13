@@ -20,13 +20,14 @@ class SendEmail:
         time.sleep(2)
 
         os.startfile("outlook")  
-        time.sleep(5)
+        time.sleep(8)
 
         window = gw.getWindowsWithTitle("Outlook")[0]
+        time.sleep(10)
         window.maximize()
 
         pyautogui.hotkey("ctrl", "o")
-        time.sleep(3)
+        time.sleep(5)
 
         pyautogui.click(1471, 86)
 
@@ -38,7 +39,7 @@ class SendEmail:
         pyautogui.press("tab")
 
         pyautogui.write("Bom dia, gente bonita (e arrumadinhos)!!!")
-        time.sleep(1)
+        time.sleep(2)
 
         pyautogui.hotkey("ctrl", "v")
         time.sleep(3)

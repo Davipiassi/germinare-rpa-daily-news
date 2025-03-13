@@ -6,6 +6,8 @@ from sources.uol import UOLReader
 from sources.trending import TrendingReader
 from sources.report import NewsReport
 from sources.sendEmail import SendEmail
+from selenium.webdriver.chrome.options import Options
+import time
 
 report = {
     'economy': [],
@@ -16,8 +18,10 @@ report = {
 }
 
 def run_cnn_reader(report):
-    driver = webdriver.Chrome()  
-    cnn_reader = CnnReader(driver)
+    option = Options()
+    option.add_experimental_option("prefs", {"profile.default_content_setting_values.cookies": 2})
+    driver = webdriver.Chrome(options=option)  
+    cnn_reader = CnnReader(driver)  
     try:
         cnn_reader.attatch_news(report)
     finally:
