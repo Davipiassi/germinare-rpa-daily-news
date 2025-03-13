@@ -44,7 +44,7 @@ class G1Reader:
                     'url': url
                 }
             except Exception as e:
-                print(f'Error while extracting these news: {type(e).__name__}')
+                print(f'Error while extracting G1 news: {type(e).__name__}')
                 continue
             
     def __extract_entertainment_first_news(self, news_list):
@@ -62,5 +62,5 @@ class G1Reader:
                     'url': url
                 }
             except Exception as e:
-                print(f'Error while extracting these news: {type(e).__name__}')
+                print(f'Error while extracting G1 entertainment news: {type(e).__name__}')
                 continue

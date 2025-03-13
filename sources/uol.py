@@ -33,7 +33,7 @@ class UOLReader:
             news_list.append(news)
 
         except Exception as e:
-            print(f'Error while extracting these news: {type(e).__name__}')
+            print(f'Error while extracting UOL news: {type(e).__name__}')
             
         return news_list
     

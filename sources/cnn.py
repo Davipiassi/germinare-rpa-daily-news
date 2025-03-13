@@ -39,4 +39,4 @@ class CnnReader:
                 'url': url
             }
         except Exception as e:
-            print(f'Error while extracting these news: {type(e).__name__}')
+            print(f'Error while extracting CNN news: {type(e).__name__}')
