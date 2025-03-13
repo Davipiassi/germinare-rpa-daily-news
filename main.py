@@ -5,6 +5,7 @@ from sources.g1 import G1Reader
 from sources.uol import UOLReader
 from sources.trending import TrendingReader
 from sources.report import NewsReport
+from sources.sendEmail import SendEmail
 
 report = {
     'economy': [],
@@ -60,9 +61,14 @@ def main():
     g1_thread.join()
     uol_thread.join()
     trending_thread.join()
-            
+    
     report_generator = NewsReport(report)
-    report_generator.generate_pdf()
+    pdf_path = report_generator.generate_pdf()
+    print(pdf_path)
+    
+    email_sender = SendEmail()
+    email_sender.sendNewsLetter(pdf_path)
+
 
 main()
-print(report)
+# print(report)
